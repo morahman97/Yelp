@@ -8,9 +8,10 @@
 
 import UIKit
 
-class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     var businesses: [Business]!
+    var data : [String] = []
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
@@ -22,10 +23,11 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         
         tableView.delegate = self
         tableView.dataSource = self
+        searchBar.delegate = self
         
-//        searchBar = UISearchBar()
-  //      searchBar.sizeToFit()
-    //    navigationItem.titleView = searchBar
+        searchBar = UISearchBar()
+    //    searchBar.sizeToFit()
+        navigationItem.titleView = searchBar
         
         Business.searchWithTerm(term: "Thai", completion: { (businesses: [Business]?, error: Error?) -> Void in
             
@@ -34,6 +36,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
             if let businesses = businesses {
                 for business in businesses {
                     print(business.name!)
+                    //data.append(business.name!)
                     print(business.address!)
                 }
             }
